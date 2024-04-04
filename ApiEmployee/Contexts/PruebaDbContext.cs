@@ -5,7 +5,7 @@ using Shared.Entities;
 
 namespace ApiEmployee.Contexts
 {
-    public class PruebaDbContext(DbContextOptions<PruebaDbContext> options) : DbContext(options), IEmployeeContext
+    public class PruebaDbContext(DbContextOptions<PruebaDbContext> options) : DbContext(options), IEmployeeDbContext
     {
         public DbSet<UserEntity> Users { get; set; }
 

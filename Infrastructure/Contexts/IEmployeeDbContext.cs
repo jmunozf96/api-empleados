@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Contexts
 {
-    public interface IEmployeeContext
+    public interface IEmployeeDbContext
     {
         public DbSet<UserEntity> Users { get; set; }
     }
