@@ -10,6 +10,7 @@ namespace Infrastructure.Profiles
         {
             CreateMap<UserEntity, User>()
                 .ForMember(dest => dest.FullName, src => src.MapFrom(x => x.Name + " " + x.LastName));
+            CreateMap<User, UserEntity>();
         }
     }
 }

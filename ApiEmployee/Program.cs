@@ -1,5 +1,6 @@
 using ApiEmployee.IoC.Contexts;
 using ApiEmployee.IoC.Options;
+using ErpIoc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,11 @@ var configuration = builder.Configuration;
 
 builder.Services.AddAppDbContext(configuration);
 builder.Services.AddOptions(configuration);
+builder.Services.AddRepositoryDependencyInjection();
+builder.Services.AddServiceDependencyInjection();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddRepositoryDependencyInjection();
+builder.Services.AddServiceDependencyInjection();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

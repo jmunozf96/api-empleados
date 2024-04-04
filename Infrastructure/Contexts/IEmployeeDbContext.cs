@@ -14,5 +14,6 @@ namespace Infrastructure.Contexts
         public DbSet<RoleEntity> Roles { get; set; }
         public DbSet<UserRoleEntity> UserRoles { get; set; }
         public DbSet<EmployeeEntity> Employees { get; set; }
+        public int SaveChanges();
     }
 }
