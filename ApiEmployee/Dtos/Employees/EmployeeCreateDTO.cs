@@ -1,6 +1,6 @@
 ﻿namespace ApiEmployee.Dtos.Employee
 {
-    public class CreateEmployeeDTO
+    public class EmployeeCreateDTO
     {
         public required string Email { get; set; }
 

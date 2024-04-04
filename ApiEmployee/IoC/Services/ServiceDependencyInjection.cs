@@ -1,5 +1,7 @@
 ﻿using Application.Commands;
+using Application.Services;
 using Domain.Ports.In.Commands;
+using Domain.Ports.In.Services;
 
 namespace ErpIoc
 {
@@ -9,6 +11,7 @@ namespace ErpIoc
         {
             services.AddScoped<ICreateDefaultUserCommandHandler, CreateDefaultUserCommandHandler>();
             services.AddScoped<ICreateEmployeeCommandHandler, CreateEmployeeCommandHandler>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             return services;
         }
     }
