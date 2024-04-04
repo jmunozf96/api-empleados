@@ -1,9 +1,5 @@
-﻿using Shared.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Models.Commands;
+using Shared.Entities;
 
 namespace Domain.Entities
 {
@@ -11,11 +7,11 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
 
-        public required String Position { get; set; }
+        public required string Position { get; set; }
 
-        public required String Address { get; set; }
+        public required string Address { get; set; }
 
-        public required String Phone { get; set; }
+        public required string Phone { get; set; }
 
         public required User User { get; set; }
     }

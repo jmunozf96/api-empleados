@@ -11,6 +11,7 @@ namespace ErpIoc
         {
             services.AddScoped<ICreateDefaultUserCommandHandler, CreateDefaultUserCommandHandler>();
             services.AddScoped<ICreateEmployeeCommandHandler, CreateEmployeeCommandHandler>();
+            services.AddScoped<IUpdateEmployeeCommandHandler, UpdateEmployeeCommandHandler>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             return services;
         }

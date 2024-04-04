@@ -1,10 +1,6 @@
 ﻿using Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Contexts
 {
@@ -14,6 +10,7 @@ namespace Infrastructure.Contexts
         public DbSet<RoleEntity> Roles { get; set; }
         public DbSet<UserRoleEntity> UserRoles { get; set; }
         public DbSet<EmployeeEntity> Employees { get; set; }
+        public EntityEntry Entry(object entity);
         public int SaveChanges();
     }
 }

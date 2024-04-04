@@ -42,8 +42,11 @@ namespace ApiEmployee.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] EmployeeUpdateDTO dto)
         {
+            dto.Id = id;
+            var command = _mapper.Map<UpdateEmployeeCommand>(dto);
+            _service.Update(command);
         }
 
         [HttpDelete("{id}")]

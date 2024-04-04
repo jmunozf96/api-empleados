@@ -1,9 +1,4 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Ports.Out
 {
@@ -13,7 +8,7 @@ namespace Domain.Ports.Out
 
         Employee Create(Employee employee);
 
-        void Update(Employee employee);
+        void Update(int id, Employee employee);
 
         void Delete(int id);
     }

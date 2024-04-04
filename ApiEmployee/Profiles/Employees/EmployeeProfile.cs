@@ -3,7 +3,6 @@ using ApiEmployee.Dtos.Employees;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Models.Commands;
-using Infrastructure.Entities;
 
 namespace ApiEmployee.Profiles.Employees
 {
@@ -13,6 +12,7 @@ namespace ApiEmployee.Profiles.Employees
         {
             CreateMap<EmployeeCreateDTO, CreateEmployeeCommand>();
             CreateMap<Employee, EmployeeReadDTO>();
+            CreateMap<EmployeeUpdateDTO, UpdateEmployeeCommand>();
         }
     }
 }
