@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using Abp.Domain.Entities;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiEmployee.Controllers
@@ -22,6 +23,11 @@ namespace ApiEmployee.Controllers
                 Title = "Server error",
                 Detail = exception.Message
             };
+
+            if (exception is EntityNotFoundException) {
+                problemDetails.Status = StatusCodes.Status404NotFound;
+                problemDetails.Title = "Not Found";
+            }
 
             httpContext.Response.StatusCode = problemDetails.Status.Value;
 
