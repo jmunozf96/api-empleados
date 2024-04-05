@@ -13,9 +13,9 @@ namespace Infrastructure.Entities
 
         public required string Position { get; set; }
 
-        public required string Address { get; set; }
+        public string? Address { get; set; }
 
-        public required string Phone { get; set; }
+        public string? Phone { get; set; }
 
         public required int UserId { get; set; } 
         public required UserEntity User { get; set; }
