@@ -27,9 +27,11 @@ namespace ApiEmployee.Controllers
 
         [Authorize(Roles = RolesUtil.Admin + "," + RolesUtil.Employee)]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public Paginated<EmployeeReadDTO> Get(int pageIndex = 1, int pageSize = 10)
         {
-            return new string[] { "value1", "value2" };
+            var employees = _service.GetAll(pageIndex, pageSize);
+            var data = employees.Items.Select(c => _mapper.Map<EmployeeReadDTO>(c)).ToList();   
+            return new Paginated<EmployeeReadDTO>(data, employees.PageIndex, employees.TotalPages); 
         }
 
         [Authorize(Roles = RolesUtil.Admin + "," + RolesUtil.Employee)]

@@ -5,6 +5,8 @@ using Domain.Ports.Out;
 using Infrastructure.Contexts;
 using Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
+using Shared.Utils;
+using System.Numerics;
 
 namespace Infrastructure.Repositories
 {
@@ -58,6 +60,22 @@ namespace Infrastructure.Repositories
             entity.User.LastName = employee.User.LastName;
             Context.Employees.Update(entity);
             Context.SaveChanges();
+        }
+
+        public Paginated<Employee> GetAll(int pageIndex, int pageSize)
+        {
+            var employees = Context.Employees
+            .OrderBy(b => b.Id)
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
+            .Include(c => c.User)
+            .Select(e => Mapper.Map<Employee>(e))
+            .ToList();
+
+            var count = Context.Employees.Count();
+            var totalPages = (int)Math.Ceiling(count / (double)pageSize);
+
+            return new Paginated<Employee>(employees, pageIndex, totalPages);
         }
     }
 }
