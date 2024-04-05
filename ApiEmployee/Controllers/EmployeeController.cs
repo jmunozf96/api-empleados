@@ -6,6 +6,7 @@ using Domain.Ports.In.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Utils;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace ApiEmployee.Controllers
@@ -32,9 +33,10 @@ namespace ApiEmployee.Controllers
 
         [Authorize(Roles = RolesUtil.Admin + "," + RolesUtil.Employee)]
         [HttpGet("{id}")]
-        public string Get(int id)
+        public EmployeeReadDTO Get(int id)
         {
-            return "value";
+            var employee = _service.GetById(id);
+            return _mapper.Map<EmployeeReadDTO>(employee);
         }
 
         [Authorize(Roles = RolesUtil.Admin)]

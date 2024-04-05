@@ -7,6 +7,8 @@ namespace Domain.Ports.In.Services
     {
         Employee Create(CreateEmployeeCommand command);
 
+        Employee GetById(int id);
+
         void Update(UpdateEmployeeCommand command);
     }
 }
