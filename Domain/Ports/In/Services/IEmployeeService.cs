@@ -10,5 +10,7 @@ namespace Domain.Ports.In.Services
         Employee GetById(int id);
 
         void Update(UpdateEmployeeCommand command);
+
+        void Delete(int id);
     }
 }

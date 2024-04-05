@@ -6,26 +6,26 @@ using Domain.Ports.In.Services;
 
 namespace Application.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService(
+        ICreateEmployeeCommandHandler createEmployeeCommandHandler,
+        IUpdateEmployeeCommandHandler updateEmployeeCommandHandler,
+        IGetEmployeeQueryHandler getEmployeeQueryHandler,
+        IRemoveEmployeeCommandHandler removeEmployeeCommandHandler
+        ) : IEmployeeService
     {
-        private readonly ICreateEmployeeCommandHandler _createEmployeeCommandHandler;
-        private readonly IUpdateEmployeeCommandHandler _updateEmployeeCommandHandler;
-        private readonly IGetEmployeeQueryHandler _getEmployeeQueryHandler;
-
-        public EmployeeService(
-            ICreateEmployeeCommandHandler createEmployeeCommandHandler,
-            IUpdateEmployeeCommandHandler updateEmployeeCommandHandler,
-            IGetEmployeeQueryHandler getEmployeeQueryHandler)
-        {
-
-            _createEmployeeCommandHandler = createEmployeeCommandHandler;
-            _updateEmployeeCommandHandler = updateEmployeeCommandHandler;
-            _getEmployeeQueryHandler = getEmployeeQueryHandler;
-        }
+        private readonly ICreateEmployeeCommandHandler _createEmployeeCommandHandler = createEmployeeCommandHandler;
+        private readonly IUpdateEmployeeCommandHandler _updateEmployeeCommandHandler = updateEmployeeCommandHandler;
+        private readonly IGetEmployeeQueryHandler _getEmployeeQueryHandler = getEmployeeQueryHandler;
+        private readonly IRemoveEmployeeCommandHandler _removeEmployeeCommandHandler = removeEmployeeCommandHandler;
 
         public Employee Create(CreateEmployeeCommand command)
         {
             return _createEmployeeCommandHandler.Execute(command);
+        }
+
+        public void Delete(int id)
+        {
+            _removeEmployeeCommandHandler.Execute(id);
         }
 
         public Employee GetById(int id)

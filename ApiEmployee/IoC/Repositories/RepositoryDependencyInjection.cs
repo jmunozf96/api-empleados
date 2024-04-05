@@ -10,6 +10,7 @@ namespace ErpIoc
             services.AddScoped<UserRepositoryPort, UserRepositoryAdapter>();
             services.AddScoped<RoleRepositoryPort, RoleRepositoryAdapter>();
             services.AddScoped<EmployeeRepositoryPort, EmployeeRepositoryAdapter>();
+            services.AddScoped<UserRoleRepositoryPort, UserRoleRepositoryAdapter>();
             return services;
         }
     }

@@ -6,7 +6,6 @@ using Domain.Ports.In.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Utils;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace ApiEmployee.Controllers
@@ -61,6 +60,7 @@ namespace ApiEmployee.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _service.Delete(id);
         }
     }
 }

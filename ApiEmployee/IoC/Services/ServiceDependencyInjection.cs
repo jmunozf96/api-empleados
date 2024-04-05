@@ -18,6 +18,7 @@ namespace ErpIoc
             services.AddScoped<ICreateEmployeeCommandHandler, CreateEmployeeCommandHandler>();
             services.AddScoped<IUpdateEmployeeCommandHandler, UpdateEmployeeCommandHandler>();
             services.AddScoped<IGetEmployeeQueryHandler, GetEmployeeQueryHandler>();
+            services.AddScoped<IRemoveEmployeeCommandHandler, RemoveEmployeeCommandHandler>();
             services.AddScoped<ISignInUseCase, SignInUseCase>();
             services.AddScoped<IGetAccessTokenUseCase, GetAccessTokenUseCase>();
             services.AddScoped<IEmployeeService, EmployeeService>();
