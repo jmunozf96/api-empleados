@@ -3,7 +3,9 @@ using ApiEmployee.Dtos.Employees;
 using AutoMapper;
 using Domain.Models.Commands;
 using Domain.Ports.In.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Utils;
 
 
 namespace ApiEmployee.Controllers
@@ -21,18 +23,21 @@ namespace ApiEmployee.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = RolesUtil.Admin + "," + RolesUtil.Employee)]
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
+        [Authorize(Roles = RolesUtil.Admin + "," + RolesUtil.Employee)]
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
+        [Authorize(Roles = RolesUtil.Admin)]
         [HttpPost]
         public EmployeeReadDTO Post([FromBody] EmployeeCreateDTO dto)
         {
@@ -41,6 +46,7 @@ namespace ApiEmployee.Controllers
             return _mapper.Map<EmployeeReadDTO>(employee);
         }
 
+        [Authorize(Roles = RolesUtil.Admin)]
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] EmployeeUpdateDTO dto)
         {
@@ -49,6 +55,7 @@ namespace ApiEmployee.Controllers
             _service.Update(command);
         }
 
+        [Authorize(Roles = RolesUtil.Admin)]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

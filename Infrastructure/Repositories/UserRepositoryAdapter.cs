@@ -4,6 +4,7 @@ using Domain.Entities;
 using Domain.Ports.Out;
 using Infrastructure.Contexts;
 using Infrastructure.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -47,6 +48,7 @@ namespace Infrastructure.Repositories
         public User GetByEmail(string email)
         {
             var user = Context.Users
+                .Include(x => x.UserRoles).ThenInclude(r => r.Role)
                 .FirstOrDefault(u => u.Email == email) ?? throw new EntityNotFoundException($"User with email {email} not found.");
             return Mapper.Map<User>(user);
         }
