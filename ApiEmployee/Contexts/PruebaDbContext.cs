@@ -1,14 +1,18 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Shared.Entities;
+using Shared.Options;
 using Shared.Utils;
 using System.Data;
 
 namespace ApiEmployee.Contexts
 {
-    public class PruebaDbContext(DbContextOptions<PruebaDbContext> options) : DbContext(options), IEmployeeDbContext
+    public class PruebaDbContext(DbContextOptions<PruebaDbContext> options, IOptionsSnapshot<DefaultValue> snapshot) : DbContext(options), IEmployeeDbContext
     {
+        private readonly DefaultValue _snapshot = snapshot.Value;
+
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<RoleEntity> Roles { get; set; }
         public DbSet<UserRoleEntity> UserRoles { get; set; }
@@ -58,12 +62,13 @@ namespace ApiEmployee.Contexts
                     Email = "admin@example.com",
                     Name = "Admin",
                     LastName = "User",
-                    Password = "$2y$10$JB6nFMJMZfelBg7rhlXvDOZfp6PE9JelZ2J8irSpK680rkJ4mgMzy",
+                    Password = _snapshot.AdminPassword,
+                    CreatedAt = DateTime.UtcNow,
                 }
             );
 
             modelBuilder.Entity<UserRoleEntity>().HasData(
-               new UserRoleEntity { UserId = 1, RoleId = 1 } 
+               new UserRoleEntity { UserId = 1, RoleId = 1 }
            );
 
             modelBuilder.Entity<UserEntity>()

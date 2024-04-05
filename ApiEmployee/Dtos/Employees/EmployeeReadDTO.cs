@@ -3,7 +3,7 @@ using Domain.Entities;
 
 namespace ApiEmployee.Dtos.Employees
 {
-    public class EmployeeReadDTO
+    public record EmployeeReadDTO
     {
         public int Id { get; set; }
 

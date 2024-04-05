@@ -13,6 +13,11 @@ namespace ApiEmployee.IoC.Contexts
             ConnectionOption connectionOption = connectionOptionSection.Get<ConnectionOption>()!;
             var connectionString = connectionOption.Connection;
 
+            services.AddOptions<DefaultValue>().Configure<IConfiguration>((settings, configuration) =>
+            {
+                configuration.GetSection("DefaultValue").Bind(settings);
+            });
+
             services.AddDbContext<PruebaDbContext>(options => options.UseSqlServer(connectionString));
             services.AddScoped<IEmployeeDbContext, PruebaDbContext>();
             return services;
