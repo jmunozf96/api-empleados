@@ -8,22 +8,13 @@ using Shared.Utils;
 
 namespace Application.Commands
 {
-    public class CreateDefaultUserCommandHandler : ICreateDefaultUserCommandHandler
+    public class CreateDefaultUserCommandHandler(
+        UserRepositoryPort repositoryPort,
+        RoleRepositoryPort roleRepositoryPort,
+        IOptionsSnapshot<DefaultValue> defaultValue
+         ) : ICreateDefaultUserCommandHandler
     {
-        private readonly UserRepositoryPort _repositoryPort;
-        private readonly RoleRepositoryPort _roleRepositoryPort;
-        private readonly DefaultValue _defaultValue;
-
-        public CreateDefaultUserCommandHandler(
-            UserRepositoryPort repositoryPort,
-            RoleRepositoryPort roleRepositoryPort,
-            IOptionsSnapshot<DefaultValue> defaultValue
-         )
-        {
-            _repositoryPort = repositoryPort;
-            _roleRepositoryPort = roleRepositoryPort;
-            _defaultValue = defaultValue.Value;
-        }
+        private readonly DefaultValue _defaultValue = defaultValue.Value;
 
         public User Execute(CreateUserDefaultCommand command)
         {
@@ -31,7 +22,7 @@ namespace Application.Commands
 
             foreach (string role in command.Roles)
             {
-                roles.Add(new UserRole { Role = _roleRepositoryPort.GetByCode(role) });
+                roles.Add(new UserRole { Role = roleRepositoryPort.GetByCode(role) });
             }
 
             var hasher = new PasswordHasher();
@@ -45,7 +36,7 @@ namespace Application.Commands
             };
 
 
-            return _repositoryPort.Create(user);
+            return repositoryPort.Create(user);
         }
     }
 }
