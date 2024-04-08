@@ -40,7 +40,7 @@ namespace Application.Commands
                 Email = command.Email,
                 Name = command.Name,
                 LastName = command.LastName,
-                Password = hasher.HashPassword(_defaultValue.DefaultPassword),
+                Password = hasher.HashPassword(_defaultValue.UserPassword),
                 UserRoles = roles
             };
 
