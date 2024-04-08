@@ -2,6 +2,8 @@
 using Domain.Models.Commands;
 using Domain.Ports.In.Commands;
 using Domain.Ports.Out;
+using Microsoft.Extensions.Options;
+using Shared.Options;
 using Shared.Utils;
 
 namespace Application.Commands
@@ -10,14 +12,17 @@ namespace Application.Commands
     {
         private readonly UserRepositoryPort _repositoryPort;
         private readonly RoleRepositoryPort _roleRepositoryPort;
+        private readonly DefaultValue _defaultValue;
 
         public CreateDefaultUserCommandHandler(
             UserRepositoryPort repositoryPort,
-            RoleRepositoryPort roleRepositoryPort
-            )
+            RoleRepositoryPort roleRepositoryPort,
+            IOptionsSnapshot<DefaultValue> defaultValue
+         )
         {
             _repositoryPort = repositoryPort;
             _roleRepositoryPort = roleRepositoryPort;
+            _defaultValue = defaultValue.Value;
         }
 
         public User Execute(CreateUserDefaultCommand command)
@@ -35,7 +40,7 @@ namespace Application.Commands
                 Email = command.Email,
                 Name = command.Name,
                 LastName = command.LastName,
-                Password = hasher.HashPassword("12345."),
+                Password = hasher.HashPassword(_defaultValue.DefaultPassword),
                 UserRoles = roles
             };
 
