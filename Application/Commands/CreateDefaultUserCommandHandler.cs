@@ -18,6 +18,11 @@ namespace Application.Commands
 
         public User Execute(CreateUserDefaultCommand command)
         {
+            var existUser = repositoryPort.ExistByEmail(command.Email);
+            if ( existUser ) {
+                throw new Exception("Ya existe un usuario registrado con ese correo.");
+            }
+
             var roles = new HashSet<UserRole>();
 
             foreach (string role in command.Roles)

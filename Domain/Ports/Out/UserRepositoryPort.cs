@@ -13,5 +13,9 @@ namespace Domain.Ports.Out
         void Update(User user);
 
         void Delete(int id);
+
+        bool ExistByEmail(string email);
+
+        bool ExistDistinct(int userId, string email);
     }
 }

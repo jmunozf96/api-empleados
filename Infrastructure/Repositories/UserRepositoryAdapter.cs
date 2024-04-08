@@ -59,5 +59,17 @@ namespace Infrastructure.Repositories
             Context.Users.Update(entity);
             Context.SaveChanges();
         }
+
+        public bool ExistByEmail(string email)
+        {
+            return Context.Users
+                .Any(u => u.Email == email);
+        }
+
+        public bool ExistDistinct(int userId, string email)
+        {
+            return Context.Users
+                .Any(u => u.Id != userId && u.Email == email);
+        }
     }
 }
