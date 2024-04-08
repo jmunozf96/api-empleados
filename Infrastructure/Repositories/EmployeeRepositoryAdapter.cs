@@ -76,5 +76,11 @@ namespace Infrastructure.Repositories
 
             return new Paginated<Employee>(employees, pageIndex, totalPages);
         }
+
+        public User GetUser(int id)
+        {
+            var employee = GetById(id);
+            return employee.User;
+        }
     }
 }

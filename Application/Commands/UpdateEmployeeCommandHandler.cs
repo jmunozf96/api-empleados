@@ -6,21 +6,24 @@ using Domain.Ports.Out;
 
 namespace Application.Commands
 {
-    public class UpdateEmployeeCommandHandler : IUpdateEmployeeCommandHandler
+    public class UpdateEmployeeCommandHandler(
+        EmployeeRepositoryPort repositoryPort,
+        UserRepositoryPort userRepositoryPort,
+        IMapper mapper
+        ) : IUpdateEmployeeCommandHandler
     {
-        private readonly EmployeeRepositoryPort _repositoryPort;
-        private readonly IMapper _mapper;
-
-        public UpdateEmployeeCommandHandler(EmployeeRepositoryPort  repositoryPort, IMapper mapper)
-        {
-            _repositoryPort = repositoryPort;
-            _mapper = mapper;
-        }
-
         public void Execute(UpdateEmployeeCommand command)
         {
-            var employee = _mapper.Map<Employee>(command);
-            _repositoryPort.Update(command.Id, employee);
+            var employee = mapper.Map<Employee>(command);
+
+            var user = repositoryPort.GetUser(employee.Id);
+            var existUser = userRepositoryPort.ExistDistinct(user.Id, command.Email);
+            if (existUser)
+            {
+                throw new Exception("Ya existe un usuario registrado con ese correo.");
+            }
+
+            repositoryPort.Update(command.Id, employee);
         }
     }
 }

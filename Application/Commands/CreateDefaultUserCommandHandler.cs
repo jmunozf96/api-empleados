@@ -40,7 +40,6 @@ namespace Application.Commands
                 UserRoles = roles
             };
 
-
             return repositoryPort.Create(user);
         }
     }

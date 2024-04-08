@@ -11,6 +11,8 @@ namespace Domain.Ports.Out
 
         Employee Create(Employee employee);
 
+        User GetUser(int id);
+
         void Update(int id, Employee employee);
 
         void Delete(int id);
